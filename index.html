@@ -7,8 +7,8 @@
   <meta name="description" content="Três mensagens em voz alta para comunicar como você se sente durante o atendimento odontológico.">
   <title>Voz do Paciente</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=3">
-  <script src="app.js?v=3" defer></script>
+  <link rel="stylesheet" href="style.css?v=8">
+  <script src="app.js?v=4" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#patient-actions">Ir para as mensagens</a>
@@ -17,16 +17,30 @@
       <svg class="brand-symbol" viewBox="0 0 48 48" aria-hidden="true"><path d="M15 7h19c6 0 10 4 10 10v12c0 6-4 10-10 10H18L7 45V30C3 24 3 16 7 11c2-3 5-4 8-4Z"/><path class="care-cross" d="M22 16h5v7h7v5h-7v7h-5v-7h-7v-5h7Z"/></svg>
       <span>Voz do Paciente</span>
     </a>
+    <div class="doctor-tools">
     <button class="utility" id="fullscreen" type="button" aria-label="Tela cheia"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4"/></svg><span>Tela cheia</span></button>
+      <details class="audio-settings" id="doctor-settings">
+        <summary aria-label="Ajustes de som para a doutora"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5m4 0h7M4 17h9m4 0h3M9 4v6m4 4v6"/></svg><span>Ajustes</span></summary>
+        <section class="settings-panel" aria-labelledby="settings-title">
+          <div class="settings-heading"><div><span>PARA A DOUTORA</span><h2 id="settings-title">Ajustes de som</h2></div><button id="settings-close" type="button" class="close-button" aria-label="Fechar ajustes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+          <div class="settings-fields">
+            <label class="volume-label" for="volume">Volume <output id="volume-value" for="volume">100%</output></label>
+            <input id="volume" type="range" min="30" max="100" step="5" value="100">
+            <label for="speed">Velocidade da fala</label>
+            <select id="speed"><option value="1">Tranquilo</option><option value="0.9">Mais devagar</option></select>
+            <button class="test-button" id="test-sound" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8"/></svg>Testar voz</button>
+            <p>Confira o volume do aparelho antes de iniciar o procedimento.</p>
+          </div>
+        </section>
+      </details>
+    </div>
   </header>
-
   <main class="app">
     <section class="patient-actions" id="patient-actions" aria-labelledby="page-title" tabindex="-1">
       <div class="intro">
-        <h1 id="page-title">Como você está<br class="desktop-break"> se sentindo?</h1>
+        <h1 id="page-title">Como você está<br> se sentindo?</h1>
         <p>Toque em uma mensagem para falar com seu dentista.</p>
       </div>
-
       <div class="choices" aria-label="Mensagens para o dentista">
         <button class="choice comfortable" type="button" data-message="comfortable" aria-label="Estou sem dor. Pode continuar." aria-pressed="false">
           <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 9c-5-4-13-4-15 3-3 8 2 23 6 27 4 3 4-10 9-10s5 13 9 10c4-4 9-19 6-27-2-7-10-7-15-3Z"/><path d="M18 19h.1M30 19h.1m-13 5c4 5 10 5 14 0"/></svg></span>
@@ -47,35 +61,15 @@
         </button>
       </div>
     </section>
-
-    <aside class="communication" aria-label="Sua mensagem e ajustes de som">
-      <section class="feedback" id="feedback" data-state="idle" aria-label="Reprodução de voz">
-        <div class="feedback-live" role="status" aria-live="polite" aria-atomic="true">
-          <span class="state-label" id="state-label">Pronto para ouvir</span>
-          <div class="feedback-message"><svg class="feedback-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg><strong id="status-title">Sua mensagem aparece aqui.</strong></div>
-          <p id="status-detail">Escolha uma das três mensagens.</p>
-        </div>
-        <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-      </section>
-
-      <div class="sound-controls">
-        <button class="test-button" id="test-sound" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8"/></svg>Testar voz</button>
-        <details class="audio-settings">
-          <summary><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5m4 0h7M4 17h9m4 0h3M9 4v6m4 4v6"/></svg>Ajustes de som<svg class="settings-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></summary>
-          <div class="settings-fields">
-            <label class="volume-label" for="volume">Volume <output id="volume-value" for="volume">100%</output></label>
-            <input id="volume" type="range" min="30" max="100" step="5" value="100">
-            <label for="speed">Ritmo da fala</label>
-            <select id="speed"><option value="1">Tranquilo</option><option value="0.9">Mais devagar</option></select>
-            <p>Confira também o volume do aparelho antes de começar.</p>
-          </div>
-        </details>
+    <section class="feedback" id="feedback" data-state="idle" aria-label="Reprodução de voz">
+      <div class="feedback-live" role="status" aria-live="polite" aria-atomic="true">
+        <span class="state-label" id="state-label">Pronto para ouvir</span>
+        <strong id="status-title">Toque em uma opção para falar com a doutora.</strong>
+        <p id="status-detail">Sua mensagem será falada em voz alta.</p>
       </div>
-      <p class="sound-hint">Voz suave em português brasileiro.</p>
-      <p id="screen-notice" class="screen-notice" role="status" aria-live="polite"></p>
-      <noscript><p class="no-script">Ative o JavaScript no navegador para reproduzir as mensagens. Você também pode mostrar os textos ao dentista.</p></noscript>
-    </aside>
+    </section>
+    <p id="screen-notice" class="screen-notice" role="status" aria-live="polite"></p>
+    <noscript><p class="no-script">Ative o JavaScript para ouvir as mensagens. Você também pode mostrar os textos à doutora.</p></noscript>
   </main>
-  <footer>Seu conforto, no seu tempo.</footer>
 </body>
 </html>

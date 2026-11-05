@@ -142,6 +142,21 @@
   }
   buttons.forEach(button => button.addEventListener('click', () => speak(button.dataset.message)));
   document.getElementById('test-sound').addEventListener('click', () => speak('test'));
+  const doctorSettings = document.getElementById('doctor-settings');
+  function closeSettings(returnFocus = false) {
+    doctorSettings.open = false;
+    if (returnFocus) doctorSettings.querySelector('summary').focus();
+  }
+  document.getElementById('settings-close').addEventListener('click', () => closeSettings(true));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && doctorSettings.open) {
+      event.preventDefault();
+      closeSettings(true);
+    }
+  });
+  document.addEventListener('click', event => {
+    if (doctorSettings.open && !doctorSettings.contains(event.target)) closeSettings();
+  });
   const fullscreen = document.getElementById('fullscreen');
   if (!document.fullscreenEnabled) fullscreen.hidden = true;
   else fullscreen.addEventListener('click', async () => {
