@@ -3,62 +3,79 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#183e39">
-  <meta name="description" content="Toque em um dos três botões para falar com seu dentista durante o atendimento.">
+  <meta name="theme-color" content="#114f55">
+  <meta name="description" content="Três mensagens em voz alta para comunicar como você se sente durante o atendimento odontológico.">
   <title>Voz do Paciente</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=2">
-  <script src="app.js?v=2" defer></script>
+  <link rel="stylesheet" href="style.css?v=3">
+  <script src="app.js?v=3" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#patient-actions">Ir para as mensagens</a>
   <header class="topbar">
     <a class="brand" href="./" aria-label="Voz do Paciente, início">
-      <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v10H9l-4 4V5Z"/><path d="M9 10h.01M12 10h.01M15 10h.01"/></svg></span>
-      <span>voz do paciente<span class="brand-caption">CUIDADO QUE ESCUTA</span></span>
+      <svg class="brand-symbol" viewBox="0 0 48 48" aria-hidden="true"><path d="M15 7h19c6 0 10 4 10 10v12c0 6-4 10-10 10H18L7 45V30C3 24 3 16 7 11c2-3 5-4 8-4Z"/><path class="care-cross" d="M22 16h5v7h7v5h-7v7h-5v-7h-7v-5h7Z"/></svg>
+      <span>Voz do Paciente</span>
     </a>
-    <button class="utility" id="fullscreen" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg><span>Tela cheia</span></button>
+    <button class="utility" id="fullscreen" type="button" aria-label="Tela cheia"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4"/></svg><span>Tela cheia</span></button>
   </header>
 
-  <main>
-    <div class="intro">
-      <p class="eyebrow"><span></span> SUA VOZ, NO SEU TEMPO</p>
-      <h1>Como você está se sentindo?</h1>
-      <p>Um toque é tudo o que você precisa para ser ouvido.</p>
-    </div>
+  <main class="app">
+    <section class="patient-actions" id="patient-actions" aria-labelledby="page-title" tabindex="-1">
+      <div class="intro">
+        <h1 id="page-title">Como você está<br class="desktop-break"> se sentindo?</h1>
+        <p>Toque em uma mensagem para falar com seu dentista.</p>
+      </div>
 
-    <div class="choices" aria-label="Mensagens para o dentista">
-      <button class="choice comfortable" type="button" data-message="comfortable" aria-label="Estou sem dor, pode continuar">
-        <span class="choice-top"><span class="number">ESTOU BEM</span><span class="audio-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg></span></span>
-        <svg class="face" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="32"/><path d="M27 32h.1M53 32h.1" class="eyes"/><path d="M25 45c5 15 25 15 30 0"/></svg>
-        <span class="message"><strong>Estou sem dor.</strong><span>Pode continuar.</span></span>
-        <span class="choice-bottom">Toque para falar<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span>
-      </button>
+      <div class="choices" aria-label="Mensagens para o dentista">
+        <button class="choice comfortable" type="button" data-message="comfortable" aria-label="Estou sem dor. Pode continuar." aria-pressed="false">
+          <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 9c-5-4-13-4-15 3-3 8 2 23 6 27 4 3 4-10 9-10s5 13 9 10c4-4 9-19 6-27-2-7-10-7-15-3Z"/><path d="M18 19h.1M30 19h.1m-13 5c4 5 10 5 14 0"/></svg></span>
+          <span class="message"><strong>Estou sem dor.</strong><span>Pode continuar.</span></span>
+          <span class="choice-indicator" aria-hidden="true"><svg class="speaker" viewBox="0 0 24 24"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg><svg class="selection-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span>
+        </button>
 
-      <button class="choice discomfort" type="button" data-message="discomfort" aria-label="Estou sentindo dor, mas pode continuar">
-        <span class="choice-top"><span class="number">COM DESCONFORTO</span><span class="audio-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg></span></span>
-        <svg class="face" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="32"/><path d="M27 32h.1M53 32h.1" class="eyes"/><path d="M27 49h26"/></svg>
-        <span class="message"><strong>Estou sentindo dor.</strong><span>Mas pode continuar.</span></span>
-        <span class="choice-bottom">Toque para falar<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v8m0 5h.01"/></svg></span>
-      </button>
+        <button class="choice discomfort" type="button" data-message="discomfort" aria-label="Estou sentindo dor, mas pode continuar." aria-pressed="false">
+          <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M25 10c-5-4-14-5-17 3-3 8 2 22 6 26 4 3 4-10 9-10 4 0 5 13 9 10 3-3 5-10 6-15"/><path d="m36 4-8 13h8l-5 11 13-16h-9l5-8"/></svg></span>
+          <span class="message"><strong>Estou sentindo dor,</strong><span>mas pode continuar.</span></span>
+          <span class="choice-indicator" aria-hidden="true"><svg class="speaker" viewBox="0 0 24 24"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg><svg class="selection-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span>
+        </button>
 
-      <button class="choice stop" type="button" data-message="stop" aria-label="Estou com dor. Pare, por favor!">
-        <span class="choice-top"><span class="number">PRECISO PARAR</span><span class="audio-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg></span></span>
-        <svg class="face" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="32"/><path d="M27 32h.1M53 32h.1" class="eyes"/><path d="M25 55c5-15 25-15 30 0"/></svg>
-        <span class="message"><strong>Estou com dor.</strong><span>Pare, por favor!</span></span>
-        <span class="choice-bottom">Toque para pedir uma pausa<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 3-5 5v8l5 5h8l5-5V8l-5-5H8Z"/><path d="M9 9h6v6H9z"/></svg></span>
-      </button>
-    </div>
-
-    <section class="feedback" id="feedback" aria-label="Reprodução de voz">
-      <span class="feedback-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg></span>
-      <div class="feedback-text" role="status" aria-live="polite" aria-atomic="true"><strong id="status-title">Estamos prontos para ouvir você.</strong><span id="status-detail">Escolha como está se sentindo. A mensagem será falada em voz alta.</span></div>
-      <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <button class="choice stop" type="button" data-message="stop" aria-label="Estou com dor. Pare, por favor!" aria-pressed="false">
+          <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M15 25V13a3 3 0 0 1 6 0v10-15a3 3 0 0 1 6 0v15-12a3 3 0 0 1 6 0v14-8a3 3 0 0 1 6 0v13c0 8-4 14-12 14h-3c-5 0-8-3-11-7L6 27a3 3 0 0 1 5-4l4 5"/></svg></span>
+          <span class="message"><strong>Estou com dor.</strong><span>Pare, por favor!</span></span>
+          <span class="choice-indicator" aria-hidden="true"><svg class="speaker" viewBox="0 0 24 24"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg><svg class="selection-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span>
+        </button>
+      </div>
     </section>
 
-    <div class="sound-check"><div class="voice-info"><span class="voice-orb" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 10v4m4-8v12m6-14v16m4-10v4"/></svg></span><p><strong>Uma voz mais acolhedora</strong><span>Português brasileiro · feminina</span></p></div><button class="test-button" id="test-sound" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 10 7-10 7V5Z"/></svg>Ouvir a voz</button></div>
-    <details class="audio-settings"><summary>Ajustes de som</summary><div class="settings-fields"><label for="volume">Volume <output id="volume-value" for="volume">100%</output><input id="volume" type="range" min="30" max="100" step="5" value="100"></label><label for="speed">Ritmo da fala<select id="speed"><option value="1">Tranquilo</option><option value="0.9">Mais devagar</option></select></label><p>Aumente também o volume do aparelho. Teste o som antes do atendimento.</p></div></details>
-    <noscript><p class="no-script">Ative o JavaScript no navegador para reproduzir as mensagens.</p></noscript>
+    <aside class="communication" aria-label="Sua mensagem e ajustes de som">
+      <section class="feedback" id="feedback" data-state="idle" aria-label="Reprodução de voz">
+        <div class="feedback-live" role="status" aria-live="polite" aria-atomic="true">
+          <span class="state-label" id="state-label">Pronto para ouvir</span>
+          <div class="feedback-message"><svg class="feedback-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg><strong id="status-title">Sua mensagem aparece aqui.</strong></div>
+          <p id="status-detail">Escolha uma das três mensagens.</p>
+        </div>
+        <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </section>
+
+      <div class="sound-controls">
+        <button class="test-button" id="test-sound" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8"/></svg>Testar voz</button>
+        <details class="audio-settings">
+          <summary><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5m4 0h7M4 17h9m4 0h3M9 4v6m4 4v6"/></svg>Ajustes de som<svg class="settings-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></summary>
+          <div class="settings-fields">
+            <label class="volume-label" for="volume">Volume <output id="volume-value" for="volume">100%</output></label>
+            <input id="volume" type="range" min="30" max="100" step="5" value="100">
+            <label for="speed">Ritmo da fala</label>
+            <select id="speed"><option value="1">Tranquilo</option><option value="0.9">Mais devagar</option></select>
+            <p>Confira também o volume do aparelho antes de começar.</p>
+          </div>
+        </details>
+      </div>
+      <p class="sound-hint">Voz suave em português brasileiro.</p>
+      <p id="screen-notice" class="screen-notice" role="status" aria-live="polite"></p>
+      <noscript><p class="no-script">Ative o JavaScript no navegador para reproduzir as mensagens. Você também pode mostrar os textos ao dentista.</p></noscript>
+    </aside>
   </main>
-  <footer><span>Você no controle. Seu conforto em primeiro lugar.</span><span>Um cuidado mais humano começa pela escuta.</span></footer>
+  <footer>Seu conforto, no seu tempo.</footer>
 </body>
 </html>

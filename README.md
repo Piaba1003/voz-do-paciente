@@ -1,34 +1,53 @@
 # Voz do Paciente
 
-Aplicativo web para comunicar três mensagens ao dentista com botões grandes e voz em português brasileiro.
+Aplicativo web que permite comunicar ao dentista, por um toque e uma mensagem falada, como o paciente está se sentindo.
 
-## Publicar no GitHub Pages
+- **Estou sem dor. Pode continuar.**
+- **Estou sentindo dor, mas pode continuar.**
+- **Estou com dor. Pare, por favor!**
 
-1. Extraia este ZIP no computador.
-2. Crie um repositório chamado `voz-do-paciente` no GitHub. Para publicar com GitHub Pages no plano gratuito, escolha **Public** (o código também ficará público).
-3. Envie todos os arquivos e as pastas extraídos, mantendo a estrutura. O arquivo `index.html` deve ficar diretamente na raiz do repositório. Não envie o ZIP inteiro nem uma pasta externa que contenha tudo.
-4. Clique em **Commit changes** para salvar.
-5. Abra **Settings > Pages**. Em **Source**, selecione **Deploy from a branch**. Em **Branch**, selecione **main** e **/(root)**; clique em **Save**.
-6. Aguarde a publicação. O GitHub mostrará o endereço do site na mesma tela de Pages.
+## Clínica Serena
 
-Não é necessário executar npm, instalar dependências ou configurar servidor. O site usa HTML, CSS, JavaScript e arquivos de áudio incluídos neste pacote.
+Identidade em verde-petróleo e branco-gelo, tipografia humanista Source Sans 3 e ícones SVG consistentes. As ações usam texto, ícone e cor; a pausa tem contorno vermelho mais forte. Os cartões ficam empilhados no celular. Em telas amplas e horizontais, a mensagem e os controles ocupam uma coluna secundária.
 
-## Arquivos
+O arquivo `style.css` está organizado em tokens, base, componentes, layouts responsivos e preferências do usuário, sem as camadas antigas de sobrescritas.
 
-- `index.html`: tela do aplicativo.
-- `style.css`: layout e responsividade.
-- `app.js`: reprodução, interrupção de mensagens, volume e ritmo.
-- `audio/`: áudios das três mensagens e teste de voz.
-- `fonts/`: fontes Nunito e licença SIL Open Font License.
-- `icon.svg`: ícone.
-- `.nojekyll`: indica publicação estática sem processamento Jekyll.
+## Funcionamento
 
-O botão vermelho interrompe a mensagem que estiver tocando. A voz do aparelho serve de alternativa se um arquivo de áudio não carregar. Teste o áudio no aparelho antes do atendimento.
+Os MP3 em `audio/` continuam sendo a voz principal. Se um áudio não carregar, o aplicativo tenta uma voz em português do aparelho. Cada nova escolha interrompe a reprodução anterior. A mensagem escolhida continua visível em caso de falha.
 
-## Testar localmente
+O paciente também pode testar a voz e ajustar o volume e o ritmo. Essas preferências são salvas no próprio navegador quando o armazenamento está disponível. O botão de tela cheia aparece quando a API é suportada e informa uma recusa sem apagar a mensagem do paciente.
 
-Abra `index.html` em um navegador. Para testar com servidor local, se houver Python instalado, use `python -m http.server 8000` nesta pasta e abra `http://localhost:8000`.
+Teste o som no aparelho antes de iniciar o atendimento.
 
-## Referências
+## Estrutura canônica
 
-- https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+- `index.html`, `style.css`, `app.js`, `icon.svg`: aplicativo ativo na raiz.
+- `audio/`: quatro MP3 originais, preservados.
+- `fonts/`: fontes locais e suas licenças SIL Open Font License. A interface atual usa Source Sans 3; as fontes Nunito originais foram preservadas.
+- `Voz_do_Paciente_GitHub/index.html`: encaminha o endereço antigo para `../`. Os outros arquivos legados permanecem preservados, mas não são carregados por essa entrada.
+- `tests/app.test.cjs`: regressões de áudio, preferências, acessibilidade e roteamento.
+- `docs/rebranding-verification.md`: resultados e limites da verificação.
+
+A raiz é a única fonte ativa do frontend. Faça as próximas alterações nela, em vez de manter duas implementações.
+
+## Executar e verificar
+
+Sem frameworks, backend ou dependências de aplicação. Para servir localmente, execute na raiz:
+
+```sh
+python -m http.server 8000
+```
+
+Abra `http://localhost:8000`. Para executar os testes, use Node.js com o executor de testes nativo:
+
+```sh
+node --test tests/app.test.cjs
+node --check app.js
+```
+
+## Publicação
+
+O workflow existente `.github/workflows/static.yml` publica o conteúdo do repositório no GitHub Pages quando há push na `main`, ou quando é executado manualmente. Ele não foi alterado por este rebranding.
+
+O trabalho de redesign permanece em `design/clinica-serena` para revisão. A demonstração é separada do site atual. Publicar no GitHub Pages exige uma decisão posterior de integrar as mudanças na `main`; criar a branch ou o pull request não substitui o site atual.

@@ -9,6 +9,8 @@
   const panel = document.getElementById('feedback');
   const title = document.getElementById('status-title');
   const detail = document.getElementById('status-detail');
+  const stateLabel = document.getElementById('state-label');
+  const screenNotice = document.getElementById('screen-notice');
   const buttons = [...document.querySelectorAll('[data-message]')];
   const volume = document.getElementById('volume');
   const speed = document.getElementById('speed');
@@ -45,6 +47,8 @@
     detail.textContent = description;
     panel.dataset.state = state;
     panel.dataset.tone = tone;
+    const labels = {idle: 'Pronto para ouvir', waiting: 'Preparando a voz', speaking: 'Falando agora', done: 'Mensagem concluída', error: 'Não foi possível falar'};
+    stateLabel.textContent = labels[state] || labels.idle;
   }
   function refreshVoices() { voices = synth.getVoices(); }
   if (synth) {
@@ -101,7 +105,11 @@
   function speak(key) {
     const id = ++sequence;
     stopPlayback();
-    buttons.forEach(button => button.classList.toggle('selected', button.dataset.message === key));
+    buttons.forEach(button => {
+      const selected = button.dataset.message === key;
+      button.classList.toggle('selected', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
     const audio = clips[key];
     audio.currentTime = 0;
     activeAudio = audio;
@@ -138,10 +146,11 @@
   if (!document.fullscreenEnabled) fullscreen.hidden = true;
   else fullscreen.addEventListener('click', async () => {
     try {
+      screenNotice.textContent = '';
       if (document.fullscreenElement) await document.exitFullscreen();
       else await document.documentElement.requestFullscreen();
     } catch {
-      if (!activeAudio && !currentUtterance) status('Tela cheia indisponível', 'Você pode continuar usando os três botões nesta tela.', 'idle');
+      screenNotice.textContent = 'Tela cheia indisponível. Você pode continuar usando os três botões nesta tela.';
     }
   });
   document.addEventListener('fullscreenchange', () => {
